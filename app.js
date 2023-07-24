@@ -105,15 +105,14 @@ async function updateListName(listIndex, newListName) {
     });
     return true; // Update successful
   } catch (error) {
-    console.error(error);
+i    console.error(error);
     return false;
   }
 }
 
 // Usage examples:
 const listIndex = 1;
-const itemName = "New Item";
-const itemIndex = 2;
+const itemName = "New Item"onst itemIndex = 2;
 const newListName = "New List Name";
 
 // Fetch items from a list
@@ -163,7 +162,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("./public/assets/index.html", (req, res) => {
+app.get("./public/index.html", (req, res) => {
   fs.readFile("index.html", (err, data) => {
     if (err) {
       console.error(err);
@@ -198,7 +197,7 @@ app.post("/login", (req, res) => {
         }
 
         if (results.length > 0) {
-          res.writeHead(302, { Location: "./public/assets/index.html" });// res.writeHead(302, { Location: "/index.html" })
+          res.writeHead(302, { Location: "./public/index.html" });// res.writeHead(302, { Location: "/index.html" })
           res.end();
         } else {
           res.status(401).send("Hatalı kullanıcı adı veya şifre.");
@@ -228,7 +227,7 @@ app.post("/register", (req, res) => {
           return;
         }
 
-        res.writeHead(302, { Location: "/public/assets/index.html" });
+        res.writeHead(302, { Location: "./public/index.html" });
         res.end();
       }
     );
