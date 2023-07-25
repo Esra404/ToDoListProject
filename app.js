@@ -149,7 +149,7 @@ updateListName(listIndex, newListName)
 app.use(express.static("/login"));
 
 app.get("/", (req, res) => {
-  fs.readFile("./login.html", (err, data) => {
+  fs.readFile("login.html", (err, data) => {
     if (err) {
       console.error(err);
       res.status(500).send("Sunucu hatası");
