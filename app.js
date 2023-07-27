@@ -15,136 +15,71 @@ connection.connect((err) => {
 
   console.log("mysql bağlantısı yapıldı");
 });
+// //user ıd çekme
+// app.get("/users/:id",(req,res)=>{
+//   const sql='select * from user where id=?';
+//   const params=[reg.params.id];
+//   db.query(sql,params,(err,results)=>{
+//     if(err){
+//       res.send(results)
+//     }
+//   })
+// })
 
-app.get("/users/:id",(req,res)=>{
-  const sql='select * from user where id=?';
-  const params=[reg.params.id];
-  db.query(sql,params,(err,results)=>{
+// //yeni liste, veri ekleme
+// app.post("/users", (reg, res)=>{
+//   const reqBody =reg.query;
+//   const sql='insert into users values (null,?,?,?)';
+//   const params =[reqBody.user_id,reqBody.listId,reqBody.listName];
+//   db.query(sql, params, (err,result)=>{
+//     if(err){
+//       res.send(err);
+//     } else{
+//       res.send(
+//         {
+//           status:'200',
+//           messagder:'user added'
+//         }
+//       )
+//     }
+//   })
+// })
+
+//güncelleme
+app.put("/users", (reg,res)=>{
+  const regBody = reg.query;
+  const sql = 'update users  set username= ? where id=?';
+  const params =[ regBody.listName,regBody.listId];
+  db.query(sql,params,(err,result)=> {
     if(err){
-      res.send(results)
+      res.send(err);
+    }else{
+      res.send({
+        status: '200',
+        message:'success updated'
+      })
     }
   })
-}
+})
+
+//silme
+app.delete("/users", (req,res)=> {
+  const regBody=req.query;
+  const sql = 'Delete from users where id =?';
+  const params =[reqBody.listId];
+  db.query(sql,params,(err, result)=>{
+    if(err){
+      res.send({
+        status:'200',
+        message:'succsess delete'
+
+      })
+    }
+  })
+})
 
 
 
-
-
-)
-
-
-
-/*
-// Base URL for your server API
-const baseURL = `Server çalışıyor: http://localhost:${port}/api`;
-
-// Function to get all items from a list
-async function getItemsFromList(listIndex) {
-  try {
-    const response = await axios.get(`${baseURL}/lists/${listIndex}/items`);
-    const items = response.data;
-    return items;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
-
-// Function to create a new item in a list
-async function createNewItem(listIndex, itemName) {
-  try {
-    const response = await axios.post(`${baseURL}/lists/${listIndex}/items`, {
-      itemName: itemName,
-    });
-    const itemId = response.data.id;
-    return itemId;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
-
-// Function to delete an item from a list
-async function deleteItemFromList(listIndex, itemIndex) {
-  try {
-    await axios.delete(`${baseURL}/lists/${listIndex}/items/${itemIndex}`);
-    return true; // Deletion successful
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
-}
-
-// Function to update the completion status of an item
-async function updateItemCompletionStatus(listIndex, itemIndex) {
-  try {
-    await axios.put(`${baseURL}/lists/${listIndex}/items/${itemIndex}`);
-    return true; // Update successful
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
-}
-
-// Function to delete a list and its items
-async function deleteList(listIndex) {
-  try {
-    await axios.delete(`${baseURL}/lists/${listIndex}`);
-    return true; // Deletion successful
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
-}
-
-// Function to update the name of a list
-async function updateListName(listIndex, newListName) {
-  try {
-    await axios.put(`${baseURL}/lists/${listIndex}`, {
-      newListName: newListName,
-    });
-    return true; // Update successful
-  } catch (error) {
-i    console.error(error);
-    return false;
-  }
-}
-
-// Usage examples:
-const listIndex = 1;
-const itemName = "New Item"onst itemIndex = 2;
-const newListName = "New List Name";
-
-// Fetch items from a list
-getItemsFromList(listIndex)
-  .then(items => console.log("Items:", items))
-  .catch(error => console.error("Error fetching items:", error));
-
-// Create a new item in a list
-createNewItem(listIndex, itemName)
-  .then(itemId => console.log("Created item with ID:", itemId))
-  .catch(error => console.error("Error creating item:", error));
-
-// Delete an item from a list
-deleteItemFromList(listIndex, itemIndex)
-  .then(result => console.log("Item deletion successful:", result))
-  .catch(error => console.error("Error deleting item:", error));
-
-// Update the completion status of an item
-updateItemCompletionStatus(listIndex, itemIndex)
-  .then(result => console.log("Item update successful:", result))
-  .catch(error => console.error("Error updating item:", error));
-
-// Delete a list and its items
-deleteList(listIndex)
-  .then(result => console.log("List deletion successful:", result))
-  .catch(error => console.error("Error deleting list:", error));
-
-// Update the name of a list
-updateListName(listIndex, newListName)
-  .then(result => console.log("List name update successful:", result))
-  .catch(error => console.error("Error updating list name:", error));
-*/
 
 app.use(express.static("/login"));
 
@@ -162,7 +97,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("./public/index.html", (req, res) => {
+app.get("/public/index.html", (req, res) => {
   fs.readFile("index.html", (err, data) => {
     if (err) {
       console.error(err);
@@ -197,7 +132,7 @@ app.post("/login", (req, res) => {
         }
 
         if (results.length > 0) {
-          res.writeHead(302, { Location: "./public/index.html" });// res.writeHead(302, { Location: "/index.html" })
+          res.writeHead(302, { Location: "/index.html" });
           res.end();
         } else {
           res.status(401).send("Hatalı kullanıcı adı veya şifre.");
@@ -227,7 +162,7 @@ app.post("/register", (req, res) => {
           return;
         }
 
-        res.writeHead(302, { Location: "./public/index.html" });
+        res.writeHead(302, { Location: "/index.html" });
         res.end();
       }
     );

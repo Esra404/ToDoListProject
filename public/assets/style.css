@@ -20,7 +20,7 @@ body {
    .title{
 	 font-size: 40px;
 	 font-weight: 600;
-	 color:rgb(0, 0, 0);
+	 color:rgb(12, 11, 11);
 	 letter-spacing: 1px;
 	 margin-top: 60px;
 	 margin-left: 60px;
@@ -49,8 +49,8 @@ body {
 	 margin-bottom: 10px;
 	 width: 450px;
 	 height: 480px;
-	 background: rgba(0, 0, 0, 0.3);
-	 box-shadow: 0 0 20px 9px #6865641e;
+	 background: rgba(250, 246, 246, 0.3);
+	 box-shadow: 0 0 20px 9px #a19e9c1e;
 	 border-radius: 30px;
    }
    
@@ -160,7 +160,7 @@ body {
   
   }
   .delete-button {
-   background-color: #cd0707;
+   background-color: #07cd17;
    color: white;
    border: none;
    margin-left: 25px;
@@ -171,11 +171,11 @@ body {
   }
   
   .delete-button:hover {
-   background-color: darkred;
+   background-color: rgb(202, 219, 49);
   }
   
   .edit-button {
-   background-color: #fff0ec63;
+   background-color: #e4d71e63;
    color: white;
    border: none;
    margin-top: 10px;
