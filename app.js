@@ -135,7 +135,7 @@ app.post("/login", (req, res) => {
           res.writeHead(302, { Location: "/index.html" });
           res.end();
         } else {
-          res.status(401).send("Hatalı kullanıcı adı veya şifre.");
+          res.status(401).send("Hatalı kullanıcı adııı veya şifre.");
         }
       }
     );
